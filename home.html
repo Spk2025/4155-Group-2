@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#">Mood Journal</a>
+            <a href="#">Log</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>How are you feeling?</h1>
+        <div class="moods">
+            <div class="mood">
+                <button class="emoji-btn" data-mood="happy">😊</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="sad">😢</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="angry">😠</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="excited">🤩</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="calm">😌</button>
+                <p class="count">0</p>
+            </div>
+        </div>
+        <div class="journal-entry">
+            <h2>Create a new entry</h2>
+            <textarea id="journal-text" placeholder="Describe your feeling..."></textarea>
+            <button id="save-btn">Log Entry</button>
+        </div>
+        <div class="entries">
+            <h2>Your Entries</h2>
+            <ul id="entries-list">
+
+                <!-- entries will be added here -->
+
+            </ul>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
