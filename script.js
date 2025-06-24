@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedMood = null;
 
+    // User Story #1
     // this loads the counts from local storage or default to 0
     const moodCounts = JSON.parse(localStorage.getItem('moodCounts')) || {
         happy: 0,
@@ -63,4 +64,34 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please write something about your feeling.');
         }
     });
+
+    // User Story #3
+    // **Reset All**: Including; clear counts, localStorage, and Journal entries
+    resetButton.addEventLister('click', () => {
+        if (!confirm('Do you wish to clear all mood data and entries?')) return;
+
+        // clear counts in memory
+        Object.keys(moodCounts).forEach(m => moodCounts[m] = 0);
+
+        // persist cleared state
+        localStorage.setItem('moodCounts', JSON.stringify(moodCounts));
+
+        // update count badges
+        updateMoodCounts();
+
+        // remove all jounral entries
+        entriesList.innerHTML = '';
+    });
+
+    // Helper: update count badge next to each emoji
+    function updateMoodCOunts() {
+        for (const mood in moodCounts) {
+            const countEl = document.querySelector(`.emoji-btn[data-mood="${mood}"] + .count`);
+            if (countEl) countEl.textContent = moodCOunts[mood];
+        }
+    }
+
+    function capitalize(s) {
+        return s.charAt(0).toUpperCase() + s.slice(1);
+    }
 }); 
