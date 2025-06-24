@@ -4,6 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveButton  = document.getElementById('save-btn');
     const resetButton = document.getElementById('reset-btn');
     const entriesList = document.getElementById('entries-list');
+    const chartTypeSelect = document.getElementById('chart-type');
+    const chartCanvas = document.getElementById('moodChart').getContext('2d');
+
 
     let selectedMood = null;
 
@@ -64,6 +67,76 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (!text) {
             alert('Please write something about your feeling.');
         }
+    });
+
+    // User Story #2
+    // display live chart that summarizes mood frequency
+
+    let moodChart = new Chart(chartCanvas, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(moodCounts),
+            datasets: [{
+                label: 'Mood Frequency',
+                data: Object.values(moodCounts),
+                backgroundColor: [
+                    'rgba(255, 205, 86, 0.7)',
+                    'rgba(54, 162, 235, 0.7)',
+                    'rgba(255, 99, 132, 0.7)',
+                    'rgba(75, 192, 192, 0.7)',
+                    'rgba(153, 102, 255, 0.7)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { precision: 0 }
+                }
+            }
+        }
+    });
+
+    function updateMoodChart() {
+        moodChart.data.datasets[0].data = Object.values(moodCounts);
+        moodChart.update();
+    }
+
+    chartTypeSelect.addEventListener('change', () => {
+        const newType = chartTypeSelect.value;
+
+        moodChart.destroy();
+
+        moodChart = new Chart(chartCanvas, {
+            type: newType,
+            data: {
+                labels: Object.keys(moodCounts),
+                datasets: [{
+                    label: 'Mood Frequency',
+                    data: Object.values(moodCounts),
+                    backgroundColor: [
+                        'rgba(255, 205, 86, 0.7)',
+                        'rgba(54, 162, 235, 0.7)',
+                        'rgba(255, 99, 132, 0.7)',
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(153, 102, 255, 0.7)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: newType === 'bar' ? {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                } : {}
+            }
+        });
     });
 
     // User Story #3
