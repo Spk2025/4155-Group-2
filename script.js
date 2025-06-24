@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // User Story #3
-    // **Reset All**: Including; clear counts, localStorage, and Journal entries
+    // reset all including; clear counts, localStorage, and Journal entries
     resetButton.addEventLister('click', () => {
         if (!confirm('Do you wish to clear all mood data and entries?')) return;
 
