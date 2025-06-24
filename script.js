@@ -32,10 +32,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function updateMoodCounts() {
+        console.log('updateMoodCounts called'); // Debug log
         for (const mood in moodCounts) {
             const countElement = document.querySelector(`.emoji-btn[data-mood="${mood}"] + .count`);
             if (countElement) {
                 countElement.textContent = moodCounts[mood];
+                console.log(`Set count for ${mood} to`, moodCounts[mood]); // Debug log
+            } else {
+                console.log(`Count element not found for mood: ${mood}`); // Debug log
             }
         }
     }
@@ -141,29 +145,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // User Story #3
     // reset all including; clear counts, localStorage, and Journal entries
-    resetButton.addEventLister('click', () => {
+    resetButton.addEventListener('click', () => {
+        console.log('Reset All button clicked'); // Debug log
         if (!confirm('Do you wish to clear all mood data and entries?')) return;
 
         // clear counts in memory
         Object.keys(moodCounts).forEach(m => moodCounts[m] = 0);
+        console.log('Mood counts after reset:', moodCounts); // Debug log
 
-        // persist cleared state
-        localStorage.setItem('moodCounts', JSON.stringify(moodCounts));
+        // remove moodCounts from localStorage
+        localStorage.removeItem('moodCounts');
 
         // update count badges
         updateMoodCounts();
+        console.log('Mood counts updated in UI'); // Debug log
 
-        // remove all jounral entries
+        // remove all journal entries
         entriesList.innerHTML = '';
-    });
 
-    // Helper: update count badge next to each emoji
-    function updateMoodCOunts() {
-        for (const mood in moodCounts) {
-            const countEl = document.querySelector(`.emoji-btn[data-mood="${mood}"] + .count`);
-            if (countEl) countEl.textContent = moodCOunts[mood];
-        }
-    }
+        // clear journal text input
+        journalText.value = '';
+
+        // deselect any selected mood button
+        moodButtons.forEach(btn => btn.classList.remove('selected'));
+        selectedMood = null;
+
+        // update the chart to reflect cleared data
+        updateMoodChart();
+        console.log('Chart updated'); // Debug log
+    });
 
     function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
