@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const moodButtons = document.querySelectorAll('.emoji-btn');
     const journalText = document.getElementById('journal-text');
-    const saveButton = document.getElementById('save-btn');
+    const saveButton  = document.getElementById('save-btn');
+    const resetButton = document.getElementById('reset-btn');
     const entriesList = document.getElementById('entries-list');
 
     let selectedMood = null;
