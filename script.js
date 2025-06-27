@@ -28,6 +28,14 @@ document.addEventListener('DOMContentLoaded', () => {
             selectedMood = button.dataset.mood;
             moodButtons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
+
+            const msg = motivationalCopy[selectedMood] || '';
+            if (msg) {
+                motivationText.textContent = msg;
+                motivationWrapper.classList.remove('hidden');
+            } else {
+                motivationWrapper.classList.add('hidden');
+            }
         });
     });
 
@@ -178,6 +186,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
+
+    // User Story #5
+    const motivationCopy = {
+        happy:    "Your happiness comes from within, no one can dim your light! 🌟",
+        sad:      "This feeling is completely normal, you will come to pass but know you will be stronger. 💙",
+        angry:    "You are valid in this feeling but do not let it consume you, take a deep breath and take back your control. 💪",
+        excited:  "Your excitement is felt by those around you, you deserve to feel like and don't forget it! 🎉",
+        calm:     "The tranquility you feel is unmatched, nothing is comparable to your inner peace. 🧘"
+    };
 }); 
 
 
