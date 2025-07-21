@@ -22,13 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // update counts on page load
     updateMoodCounts();
-
+    
+    // mood selection and message trigger
     moodButtons.forEach(button => {
         button.addEventListener('click', () => {
             selectedMood = button.dataset.mood;
             moodButtons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
 
+            // dispay motivational message
             const msg = motivationalCopy[selectedMood] || '';
             if (msg) {
                 motivationText.textContent = msg;
