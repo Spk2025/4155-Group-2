@@ -188,6 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // User Story #5
+    // motivational message mapping
     const motivationCopy = {
         happy:    "Your happiness comes from within, no one can dim your light! 🌟",
         sad:      "This feeling is completely normal, you will come to pass but know you will be stronger. 💙",
