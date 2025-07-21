@@ -1,11 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const moodButtons = document.querySelectorAll('.emoji-btn');
-    const journalText = document.getElementById('journal-text');
-    const saveButton  = document.getElementById('save-btn');
-    const resetButton = document.getElementById('reset-btn');
-    const entriesList = document.getElementById('entries-list');
-    const chartTypeSelect = document.getElementById('chart-type');
-    const chartCanvas = document.getElementById('moodChart').getContext('2d');
+    const moodButtons       = document.querySelectorAll('.emoji-btn');
+    const journalText       = document.getElementById('journal-text');
+    const saveButton        = document.getElementById('save-btn');
+    const resetButton       = document.getElementById('reset-btn');
+    const entriesList       = document.getElementById('entries-list');
+    const chartTypeSelect   = document.getElementById('chart-type');
+    const chartCanvas       = document.getElementById('moodChart').getContext('2d');
+    const motivationWrapper = document.getElementById('motivation-container');
+    const motivationText    = document.getElementById('motivation-message');
 
 
     let selectedMood = null;
@@ -29,10 +31,11 @@ document.addEventListener('DOMContentLoaded', () => {
             moodButtons.forEach(btn => btn.classList.remove('selected'));
             button.classList.add('selected');
 
-            const msg = motivationalCopy[selectedMood] || '';
-            if (msg) {
-                motivationText.textContent = msg;
-                motivationWrapper.classList.remove('hidden');
+            const msg = motivationalCopy[selectedMood] || [];
+            if (messages.length) {
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                motivationalText.textContent = messages[randomIndex];
+                motivationalWrapper.classList.remove('hidden');
             } else {
                 motivationWrapper.classList.add('hidden');
             }
