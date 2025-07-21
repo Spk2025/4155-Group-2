@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Journal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#">Mood Journal</a>
+            <a href="#">Log</a>
+        </nav>
+    </header>
+
+    <div id="current-date" class="date-display"></div>
+
+    <div class="container">
+        <h1>How are you feeling?</h1>
+        <div class="moods">
+            <div class="mood">
+                <button class="emoji-btn" data-mood="happy">😊</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="sad">😢</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="angry">😠</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="excited">🤩</button>
+                <p class="count">0</p>
+            </div>
+            <div class="mood">
+                <button class="emoji-btn" data-mood="calm">😌</button>
+                <p class="count">0</p>
+            </div>
+        </div>
+
+        <div id="motivation-container" class="motivation hidden">
+            <p id="motivation-message"></p>
+            </div>
+        
+        <div class="journal-entry">
+            <h2>Create a new entry</h2>
+            <textarea id="journal-text" placeholder="Describe your feeling..."></textarea>
+            <div class="entry-buttons">
+            <button id="save-btn">Log Entry</button>
+            <button id="reset-btn" class="secondary">Reset All</button>
+          </div>
+        </div>
+        <div class="entries">
+            <h2>Your Entries</h2>
+            <ul id="entries-list">
+
+                <!-- entries will be added here -->
+
+            </ul>
+        </div>
+        <div class="chart-section">
+            <h2>Mood Summary</h2>
+            <label for="chart-type">Select Chart Type:</label>
+            <select id="chart-type">
+                <option value="bar">Bar</option>
+                <option value="pie">Pie</option>
+            </select>
+            <canvas id="moodChart" width="400" height="200"></canvas>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
