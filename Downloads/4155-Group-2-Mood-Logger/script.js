@@ -195,36 +195,37 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // User Story #5
+    // mood message mapping
     const motivationCopy = {
         
         happy:    [
-            “Your happiness comes from within-no one can dim your light! 🌟”, 
-        “Spread and embrace this feeling as if it were a gift. 🎁”, 
-        “This joy of yours makes the world a better place. ☀️”
+            "Your happiness comes from within-no one can dim your light! 🌟", 
+        "Spread and embrace this feeling as if it were a gift. 🎁", 
+        "This joy of yours makes the world a better place. ☀️"
         ],
     
         sad:      [
-            “This feeling is completely normal-you will come to pass but know you will be stronger. 💙”, 
-            “Keep your head up and give yourself time to heal. 🌱”, 
-            “Never think you are alone in this feeling-reach out to others for support. 🤝”
+            "This feeling is completely normal-you will come to pass but know you will be stronger. 💙", 
+            "Keep your head up and give yourself time to heal. 🌱", 
+            "Never think you are alone in this feeling-reach out to others for support. 🤝"
             ],
     
         angry:    [
-            “You are valid in this feeling but do not let it consume you-take a deep breath and take back your control. 💪”, 
-            “Channel this feeling into something positive-not negative. 🔥”, 
-            “Take a moment to reflect and blow some steam-these are not feelings to act on. 🌬️”
+            "You are valid in this feeling but do not let it consume you-take a deep breath and take back your control. 💪", 
+            "Channel this feeling into something positive-not negative. 🔥", 
+            "Take a moment to reflect and blow some steam-these are not feelings to act on. 🌬️"
         ],
             
         excited:  [
-            “Your excitement is felt by those around you-you deserve to feel like and don't forget it! 🎉”, 
-                “Let this feeling carry you to take on the day. 🚀”, 
-                “This energy is magnetic-let this light guide you to your best self. ✨”
+            "Your excitement is felt by those around you-you deserve to feel like and do not forget it! 🎉", 
+                "Let this feeling carry you to take on the day. 🚀", 
+                "This energy is magnetic-let this light guide you to your best self. ✨"
         ],
     
         calm:     [
-            “The tranquility you feel is unmatched-nothing is comparable to your inner peace. 🧘”, 
-            “Serenity is a feeling like no other-nothing can ruin your peace. ☮️”, 
-            “Stay centered and allow your calm nature to anchor your decisions. ⚓️”
+            "The tranquility you feel is unmatched-nothing is comparable to your inner peace. 🧘", 
+            "Serenity is a feeling like no other-nothing can ruin your peace. ☮️", 
+            "Stay centered and allow your calm nature to anchor your decisions. ⚓️”
         ]
 };
 
