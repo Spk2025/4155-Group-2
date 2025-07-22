@@ -1,3 +1,6 @@
+// TODO: #40 Update Mood Logging Logic to Include Date
+// TODO: #41 Modify the mood UI to display each logged mood with its corresponding date
+// TODO: #43 Test mood date logging functionality
 document.addEventListener('DOMContentLoaded', () => {
     const moodButtons       = document.querySelectorAll('.emoji-btn');
     const journalText       = document.getElementById('journal-text');
@@ -64,6 +67,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+    // --- Mood Log Persistence ---
+    // Load entries from localStorage
+    function loadMoodEntries() {
+        const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+        entriesList.innerHTML = '';
+        entries.forEach(entry => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>Feeling ${entry.mood.charAt(0).toUpperCase() + entry.mood.slice(1)} ${entry.emoji}</strong><br>${entry.text}<br><span class="entry-date">${entry.date}</span>`;
+            entriesList.appendChild(li);
+        });
+    }
+
+    // Save a new entry to localStorage
+    function saveMoodEntry(mood, text, emoji, date) {
+        const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+        entries.unshift({ mood, text, emoji, date });
+        localStorage.setItem('moodEntries', JSON.stringify(entries));
+    }
+
+    // Clear all entries from localStorage
+    function clearMoodEntries() {
+        localStorage.removeItem('moodEntries');
+        entriesList.innerHTML = '';
+    }
+
+    // On page load, show all saved entries
+    loadMoodEntries();
+
+
     saveButton.addEventListener('click', () => {
         const text = journalText.value.trim();
         if (selectedMood && text) {
@@ -84,6 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const formattedDate = now.toLocaleDateString(undefined, options);
             entry.innerHTML = `<strong>Feeling ${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)} ${emoji}</strong><br>${text}<br><span class="entry-date">${formattedDate}</span>`;
             entriesList.prepend(entry);
+
+            // Save to localStorage
+            saveMoodEntry(selectedMood, text, emoji, formattedDate);
 
             // clear inputs
             journalText.value = '';
@@ -191,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Mood counts updated in UI'); // Debug log
 
         // remove all journal entries
-        entriesList.innerHTML = '';
+        clearMoodEntries();
 
         // clear journal text input
         journalText.value = '';
@@ -267,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
         calm:     [
             "The tranquility you feel is unmatched-nothing is comparable to your inner peace. 🧘", 
             "Serenity is a feeling like no other-nothing can ruin your peace. ☮️", 
-            "Stay centered and allow your calm nature to anchor your decisions. ⚓️”
+            "Stay centered and allow your calm nature to anchor your decisions. ⚓️"
         ]
     };
 

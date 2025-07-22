@@ -1,3 +1,6 @@
+// TODO: #40 Update Mood Logging Logic to Include Date
+// TODO: #41 Modify the mood UI to display each logged mood with its corresponding date
+// TODO: #43 Test mood date logging functionality
 document.addEventListener('DOMContentLoaded', () => {
     const moodButtons = document.querySelectorAll('.emoji-btn');
     const journalText = document.getElementById('journal-text');
@@ -44,12 +47,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateMoodCounts() {
         console.log('updateMoodCounts called'); // Debug log
         for (const mood in moodCounts) {
-            const countElement = document.querySelector(.emoji-btn[data-mood="${mood}"] + .count);
+            const countElement = document.querySelector(`.emoji-btn[data-mood="${mood}"] + .count`);
             if (countElement) {
                 countElement.textContent = moodCounts[mood];
-                console.log(Set count for ${mood} to, moodCounts[mood]); // Debug log
+                console.log(`Set count for ${mood} to`, moodCounts[mood]); // Debug log
             } else {
-                console.log(Count element not found for mood: ${mood}); // Debug log
+                console.log(`Count element not found for mood: ${mood}`); // Debug log
             }
         }
     }
@@ -67,8 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateMoodCounts();
 
             const entry = document.createElement('li');
-            const emoji = document.querySelector(.emoji-btn[data-mood="${selectedMood}"]).textContent;
-            entry.innerHTML = <strong>Feeling ${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)} ${emoji}</strong> ${text};
+            const emoji = document.querySelector(`.emoji-btn[data-mood="${selectedMood}"]`).textContent;
+            entry.innerHTML = `<strong>Feeling ${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)} ${emoji}</strong> ${text}`;
             entriesList.prepend(entry);
 
             // clear inputs
