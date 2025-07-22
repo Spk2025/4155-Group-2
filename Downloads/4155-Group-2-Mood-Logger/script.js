@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedMood = null;
 
+
     // User Story #1
     // this loads the counts from local storage or default to 0
     const moodCounts = JSON.parse(localStorage.getItem('moodCounts')) || {
@@ -22,8 +23,12 @@ document.addEventListener('DOMContentLoaded', () => {
         calm: 0,
     };
 
+
     // update counts on page load
     updateMoodCounts();
+
+
+
 
     moodButtons.forEach(button => {
         button.addEventListener('click', () => {
@@ -35,12 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (messages.length) {
                 const randomIndex = Math.floor(Math.random() * messages.length);
                 motivationalText.textContent = messages[randomIndex];
-                motivationalWrapper.classList.remove('hidden');
+                motivationWrapper.classList.remove('hidden');
             } else {
                 motivationWrapper.classList.add('hidden');
             }
         });
     });
+
 
     function updateMoodCounts() {
         console.log('updateMoodCounts called'); // Debug log
@@ -54,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+
+
+
 
     saveButton.addEventListener('click', () => {
         const text = journalText.value.trim();
@@ -87,6 +96,9 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please write something about your feeling.');
         }
     });
+
+
+
 
     // User Story #2
     // display live chart that summarizes mood frequency
@@ -158,6 +170,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+
+
+
     // User Story #3
     // reset all including; clear counts, localStorage, and Journal entries
     resetButton.addEventListener('click', () => {
@@ -190,6 +205,33 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('Chart updated'); // Debug log
     });
 
+
+
+
+    // User Story #4
+
+    // total mood count display update function
+    function updateTotalMoodCount() {
+        const totalMoodCount = Object.values(moodCounts).reduce((sum, count) => sum + count, 0);
+        const totalCountElement = document.getElementById('total-mood-count');
+        if (totalCountElement) {
+            totalCountElement.textContent = totalMoodCount;
+        }
+    }
+
+    // call it on load and after updates
+    updateTotalMoodCount();
+
+    // call updateTotalMoodCount whenever updateMoodCounts is called to keep in sync
+    const originalUpdateMoodCounts = updateMoodCounts;
+    updateMoodCounts = function() {
+        originalUpdateMoodCounts();
+        updateTotalMoodCount();
+    };
+
+
+
+
     function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
@@ -200,15 +242,15 @@ document.addEventListener('DOMContentLoaded', () => {
         
         happy:    [
             "Your happiness comes from within-no one can dim your light! 🌟", 
-        "Spread and embrace this feeling as if it were a gift. 🎁", 
-        "This joy of yours makes the world a better place. ☀️"
+            "Spread and embrace this feeling as if it were a gift. 🎁", 
+            "This joy of yours makes the world a better place. ☀️"
         ],
     
         sad:      [
             "This feeling is completely normal-you will come to pass but know you will be stronger. 💙", 
             "Keep your head up and give yourself time to heal. 🌱", 
             "Never think you are alone in this feeling-reach out to others for support. 🤝"
-            ],
+        ],
     
         angry:    [
             "You are valid in this feeling but do not let it consume you-take a deep breath and take back your control. 💪", 
@@ -218,8 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
         excited:  [
             "Your excitement is felt by those around you-you deserve to feel like and do not forget it! 🎉", 
-                "Let this feeling carry you to take on the day. 🚀", 
-                "This energy is magnetic-let this light guide you to your best self. ✨"
+            "Let this feeling carry you to take on the day. 🚀", 
+            "This energy is magnetic-let this light guide you to your best self. ✨"
         ],
     
         calm:     [
@@ -227,7 +269,9 @@ document.addEventListener('DOMContentLoaded', () => {
             "Serenity is a feeling like no other-nothing can ruin your peace. ☮️", 
             "Stay centered and allow your calm nature to anchor your decisions. ⚓️”
         ]
-};
+    };
+
+
 
     // User Story 
     // display the current date at the top
@@ -246,5 +290,3 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCurrentDate, 60 * 1000); // updating by the minute
 
 }); 
-
-
