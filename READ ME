@@ -1,0 +1,17 @@
+Steps to Run the Project:
+
+1. install dependencies (npm install)
+
+2. start the application (npm start)
+
+Running the Automation
+
+npm test -- --testPathPattern=simple
+
+or
+
+npm test
+
+or 
+
+npm run test:coverage
