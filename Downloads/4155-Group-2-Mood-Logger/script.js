@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chartCanvas       = document.getElementById('moodChart').getContext('2d');
     const motivationWrapper = document.getElementById('motivation-container');
     const motivationText    = document.getElementById('motivation-message');
+    const intensitySlider   = document.getElementById('mood-intensity');
+    const intensityValue    = document.getElementById('intensity-value');
+
+    intensitySlider.addEventListener('input', () => {
+        intensityValue.textContent = intensitySlider.value;
+    });
 
 
     let selectedMood = null;
@@ -80,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Save a new entry to localStorage
-    function saveMoodEntry(mood, text, emoji, date) {
+    function saveMoodEntry(mood, text, emoji, date, intensity) {
         const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
-        entries.unshift({ mood, text, emoji, date });
+        entries.unshift({ mood, text, emoji, date, intensity });
         localStorage.setItem('moodEntries', JSON.stringify(entries));
     }
 
@@ -110,12 +116,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const entry = document.createElement('li');
             const emoji = document.querySelector(`.emoji-btn[data-mood="${selectedMood}"]`).textContent;
-            // Get current date formatted
+            // get current date formatted
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = now.toLocaleDateString(undefined, options);
             entry.innerHTML = `<strong>Feeling ${selectedMood.charAt(0).toUpperCase() + selectedMood.slice(1)} ${emoji}</strong><br>${text}<br><span class="entry-date">${formattedDate}</span>`;
             entriesList.prepend(entry);
+            // save intensity 
+            const intensity = parseInt(intensitySlider.value, 10);
 
             // Save to localStorage
             saveMoodEntry(selectedMood, text, emoji, formattedDate);
@@ -257,16 +265,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // call it on load and after updates
     updateTotalMoodCount();
 
-    // call updateTotalMoodCount whenever updateMoodCounts is called to keep in sync
-    const originalUpdateMoodCounts = updateMoodCounts;
-    updateMoodCounts = function() {
-        originalUpdateMoodCounts();
-        updateTotalMoodCount();
+    // weigh mood chart by intensity
+    function computeIntensitySums() {
+        const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+        const sums = {happy:0, sad:0, angry:0, excited:0, calm:0 };
+        entries.forEach(e => {
+            if (sums[e.mood] !== undefined) sums[e.mood] += e.intensity;
+        });
+        return Object.values(sums);
+    }
+    
+    // call updateTotalMoodCount whenever updateMoodCounts is called to keep in sync    
+    const originalUpdateMoodChart = updateMoodChart;
+    updateMoodChart = function() {
+        // replace dataset with intensity sums
+        moodChart.data.datasets[0].data = computeIntensitySums();
+        moodChart.update();
     };
+    // reset bar values on first load
+    moodChart.data.datasets[0].data = computeIntensitySums();
+    moodChart.update();
 
-
-
-
+    
     function capitalize(s) {
         return s.charAt(0).toUpperCase() + s.slice(1);
     }
@@ -323,5 +343,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updateCurrentDate();
     // will update at midnight
     setInterval(updateCurrentDate, 60 * 1000); // updating by the minute
+
+    // display count vs intensity
+    function updateTotals() {
+        const entries = JSON.parse(localStorage.getItem('moodEntries')) || [];
+        document.getElementById('total-mood-count').textContent = entries.length;
+        const totalIntensity = entries.reduce((sum,e) => sum + e.intensity, 0);
+        document.getElementById('total-intensity').textContent = totalIntensity;
+    }
+
+    loadMoodEntries();
+    updateTotals();
+    saveButton.addEventListener('click', updateTotals);
+    resetButton.addEventListener('click', updateTotals);
 
 }); 
