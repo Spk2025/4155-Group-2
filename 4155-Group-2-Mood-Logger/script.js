@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const motivationWrapper = document.getElementById('motivation-container');
     const motivationText    = document.getElementById('motivation-message');
     const intensitySlider   = document.getElementById('mood-intensity');
-    const intensitySlider   = document.getElementByID('intensity-value');
+    const intensityValue   = document.getElementByID('intensity-value');
 
     intensitySlider.addEventListener('input', () => {
         intensityValue.textContent = intensitySlider.value;
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = now.toLocaleDateString(undefined, options);
-            const intensity = parseInt(intsitySlider.value, 10);
+            const intensity = parseInt(intensitySlider.value, 10);
             
             saveMoodEntry(selectedMood, text, emoji, formattedDate, intensity);
         }
@@ -401,11 +401,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const originalUpdateMoodCounts = updateMoodCounts;
     updateMoodCounts = function() {
         // replace dataset with intensity sums
-        moodChart.data.datasetsets[0].data = computeIntensitySums();
+        moodChart.data.datasets[0].data = computeIntensitySums();
         moodChart.update();
     };
     // reset the bar values on first load
-    moodChart.data.datasetsets[0].data = computeIntensitySums();
+    moodChart.data.datasets[0].data = computeIntensitySums();
     moodChart.update();
 
 
