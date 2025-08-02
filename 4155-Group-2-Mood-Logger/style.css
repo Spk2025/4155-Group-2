@@ -301,3 +301,55 @@ nav a {
 nav a:hover {
   background-color: #005ecb;
 }
+
+/* range of width in the journal panel */
+#journal-entry input[type="range"] {
+  width: 100%;
+  margin: 1rem 0 0.5rem;
+  -webkit-appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  background: #d1d1d6;
+  outline: none;
+  transition: background 0.2s ease;
+}
+#journal-entry input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #007aff;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+#journal-entry input[type="range"]::-webkit-slider-thumb:hover {
+  background: #005ecb;
+  transform: scale(1.1);
+}
+
+/* intensity label and value */
+#journal-entry label[for="mood-intensity"] {
+  display: block;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 1.5rem;
+  margin-bottom: 0.25rem;
+  text-align: left;
+  color: #1d1d1f;
+}
+#intensity-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #007aff;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+/* display intensity on each entry */
+.entry-intensity {
+  display: block;
+  font-size: 0.95rem;
+  color: #6e6e73;
+  margin-top: 0.5em;
+}
