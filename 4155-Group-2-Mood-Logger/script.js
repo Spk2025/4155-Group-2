@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const motivationWrapper = document.getElementById('motivation-container');
     const motivationText    = document.getElementById('motivation-message');
     const intensitySlider   = document.getElementById('mood-intensity');
-    const intensityValue   = document.getElementByID('intensity-value');
+    const intensityValue    = document.getElementByID('intensity-value');
 
     intensitySlider.addEventListener('input', () => {
         intensityValue.textContent = intensitySlider.value;
