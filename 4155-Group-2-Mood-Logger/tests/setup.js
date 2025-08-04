@@ -1,19 +1,16 @@
-// test setup file for Jest
-// mock localStorage with proper Jest mock functions
-global.localStorage = {
+const mockLocalStorage = {
   getItem: jest.fn(),
   setItem: jest.fn(),
   removeItem: jest.fn(),
   clear: jest.fn(),
 };
 
-
-Object.keys(global.localStorage).forEach(key => {
-  if (typeof global.localStorage[key] === 'function') {
-    global.localStorage[key] = jest.fn();
-  }
+Object.defineProperty(window, 'localStorage', {
+  value: mockLocalStorage,
+  writable: true
 });
 
+global.localStorage = mockLocalStorage;
 
 global.Chart = jest.fn().mockImplementation(() => ({
   destroy: jest.fn(),
@@ -24,7 +21,6 @@ global.Chart = jest.fn().mockImplementation(() => ({
     }]
   }
 }));
-
 
 global.console = {
   ...console,
